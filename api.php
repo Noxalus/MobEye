@@ -45,14 +45,21 @@ function is_login($cookie)
 	$query = $db->query("SELECT expires FROM user_tokens WHERE id='" . $cookie . "'");
 	
 	$dateNow = new DateTime();
-	$interval = $dateNow->diff(DateTime::CreateFromFormat('Y-m-d H:i:s', $query->fetch()['expires']));
 	
-	if ($query->rowCount() == 0 || $interval->invert == 1)
+	
+	if ($query->rowCount() == 0)
 	{
+	
+	
 		return json_encode(array('login' => false));
 	}
 	else
 	{
+	$interval = $dateNow->diff(DateTime::CreateFromFormat('Y-m-d H:i:s', $query->fetch()['expires']));
+	if ($interval->invert == 1)
+	{
+	return json_encode(array('login' => false));
+	}
 		return json_encode(array('login' => true));
 	}
 }
