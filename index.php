@@ -6,7 +6,7 @@
 	$method_name = $_GET['method'];
 	$method_json_args = $_GET['data'];
 	
-	$method_args = json_decode($method_json_args);
+	$method_args = json_decode($method_json_args, true);
 	
 	switch ($method_name)
 	{
