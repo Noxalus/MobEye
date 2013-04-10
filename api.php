@@ -137,7 +137,7 @@ function get_user($cookie)
 	require_once('db.php');
 	
 	$result = array();
-	$query = $db->query("SELECT user_id FROM  user_tokens WHERE id='" . $cookie . "'");
+	$query = $db->query("SELECT user_id FROM  user_tokens WHERE user_id='" . $cookie . "'");
 	$user_id = $query->fetch()['user_id'];
 	
 	$query = $db->query("SELECT * FROM  users WHERE id='" . $user_id . "'");
