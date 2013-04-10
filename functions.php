@@ -28,7 +28,7 @@ function fetchAll($table)
 function print_t($array)
 {
 	echo '<pre>';
-	print_r($array);
+	print_r(json_decode($array));
 	echo '</pre>';
 }
 
