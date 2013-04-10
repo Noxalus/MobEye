@@ -1,5 +1,5 @@
 http://localhost/MobEye/index.php?method=is_login&data={ "user_id" : "1" }
 http://localhost/MobEye/index.php?method=login&data={ "email" : "test@mobeye-app.com",  "password" : "test"}
-http://localhost/MobEye/index.php?method=new_user&data={ "email" : "test@mobeye-app.com",  "password" : "test", "first_name" : "Lol", "last_name" : "Hehe", "birth_date" : "09/10/1990", "place" : "75011"}
+http://localhost/MobEye/index.php?method=new_user&data={ "email" : "waza@mobeye-app.com",  "password" : "kiki", "first_name" : "Lol", "last_name" : "Hehe", "birth_date" : "09/10/1990", "place" : "75011"}
 http://localhost/MobEye/index.php?method=logout&data={ "user_id" : "5" }
 http://localhost/MobEye/index.php?method=get_missions&data={}
