@@ -118,7 +118,7 @@ function new_user($email_password_first_name_last_name_birth_date_place)
 
 function get_missions()
 {
-	include 'functions';
+	require_once 'functions.php';
 	
 	$result = GetMissions();
 	
