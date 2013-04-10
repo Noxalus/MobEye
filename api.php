@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< Updated upstream
 function login($email_password)
 {
 	$arg = json_decode($email_password, true);
@@ -69,15 +68,26 @@ function accept_mission($cookie, $id_mission)
 {
 	require_once('db.php');
 
-	$db->update('
+	$request = '
 	UPDATE missions
-	SET is_hidden=1 user_id='."{$cookie}",
-	WHERE id_mission='."${id_mission}";
+	SET is_hidden = :is_hidden, user_id = :id_user
+	WHERE id = :id_mission';
 	
-	$db->update('
+	$requestResult = $db->prepare($request);
+	$requestResult->execute(array(
+								'is_hidden' => '1',
+								'id_user' => $cookie,
+								'id_mission' => $id_mission));
+								
+	$request = '
 	UPDATE users
-	SET mission_in_progress=1
-	WHERE id_user='."${cookie}";
+	SET mission_in_progress = :mission_in_progress
+	WHERE id = :id_user';
+	
+	$requestResult = $db->prepare($request);
+	$requestResult->execute(array(
+								'mission_in_progress' => '1',
+								'id_user' => $cookie));
 }
 
 function send_data($user_id, $mission_id, $mission_text, $pictures)
