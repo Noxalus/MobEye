@@ -46,7 +46,6 @@ function is_login($cookie)
 	
 	$dateNow = new DateTime();
 	
-	
 	if ($query->rowCount() == 0)
 	{
 	
@@ -196,7 +195,6 @@ function send_data($user_id, $mission_id, $mission_text, $pictures)
 			
 			foreach($pictures as $img)
 			{
-				echo 'TEST<br />';
 				echo $img;
 				$img = str_replace('data:image/png;base64,', '', $img);
 				$img = str_replace(' ', '+', $img);
