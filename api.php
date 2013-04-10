@@ -58,10 +58,6 @@ function get_missions()
 
 function get_user($cookie)
 {
-	$date = new DateTime();
-	echo $date->format('Y-m-d H:i:s') . '<br />';
-	$date->add(new DateInterval('PT2H'));
-	echo $date->format('Y-m-d H:i:s');
 }
 
 function accept_mission($cookie, $id_mission)
