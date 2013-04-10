@@ -12,14 +12,29 @@ if (!empty($_POST))
 	$db = new PDO('mysql:host=localhost;dbname=mobeyes', 'root', '');
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-	$query = $db->query('SELECT * FROM missions');
-	
-	while($data = $query->fetch())
-	{
-		echo '<pre>';
-		print_r($data);
-		echo '</pre>';
-	}
+	$insert = $pdo->prepare('
+	INSERT INTO 
+		missions (
+			name, 
+			address, 
+			resume, 
+			price_consumer, 
+			price_business, 
+			is_hidden, 
+			need_text, 
+			user_id) 
+		VALUES (?,?,?,?,?,?,?,?)');
+
+	$insert->execute(array(
+		$_POST['mission_name'], 
+		$_POST['mission_address'], 
+		$_POST['mission_description'], 
+		$_POST['price_consumer'], 
+		$_POST['price_business'], 
+		$_POST['is_hidden'], 
+		$_POST['need_text'], 
+		0)
+	);
 }
 
 ?>
@@ -34,7 +49,7 @@ if (!empty($_POST))
 
 <body>
 
-<form action="backend.php" method="POST">
+<form action="mission_display.php" method="POST">
 	<div>
 		<p>
 			<label for="mission_name">Nom de la mission:</label>
@@ -52,13 +67,13 @@ if (!empty($_POST))
 		</p>
 		
 		<p>
-			<label for="mission_consumer">Prix consommateur:</label>
-			<input type="text" name="mission_consumer" value="COUCOU" id="mission_consumer" />
+			<label for="price_consumer">Prix consommateur:</label>
+			<input type="text" name="price_consumer" value="COUCOU" id="price_consumer" />
 		</p>
 		
 		<p>
-			<label for="mission_business">Prix business:</label>
-			<input type="text" name="mission_business" value="COUCOU" id="mission_business" />
+			<label for="price_business">Prix business:</label>
+			<input type="text" name="price_business" value="COUCOU" id="price_business" />
 		</p>
 		
 		<p>
