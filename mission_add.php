@@ -6,13 +6,13 @@ if (!empty($_POST))
 	print_r($_POST);
 	echo '</pre>';
 	
+	$is_hidden = (!empty($_POST['is_hidden'])) ? true : false;
+	$need_text = (!empty($_POST['need_text'])) ? true : false;
+	
 	// On insert dans la base de donnée
 	require_once('db.php');
-	
-	$db = new PDO('mysql:host=localhost;dbname=mobeyes', 'root', '');
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	$insert = $pdo->prepare('
+
+	$insert = $db->prepare('
 	INSERT INTO 
 		missions (
 			name, 
@@ -31,10 +31,14 @@ if (!empty($_POST))
 		$_POST['mission_description'], 
 		$_POST['price_consumer'], 
 		$_POST['price_business'], 
-		$_POST['is_hidden'], 
-		$_POST['need_text'], 
+		$is_hidden, 
+		$need_text, 
 		0)
 	);
+	
+	echo 'Nouvelle mission ajoutée !';
+	
+	header('Location: mission_display.php');
 }
 
 ?>
@@ -49,31 +53,31 @@ if (!empty($_POST))
 
 <body>
 
-<form action="mission_display.php" method="POST">
+<form action="mission_add.php" method="POST">
 	<div>
 		<p>
 			<label for="mission_name">Nom de la mission:</label>
-			<input type="text" name="mission_name" value="COUCOU" id="mission_name" />
+			<input type="text" name="mission_name" value="Nom de la mission" id="mission_name" />
 		</p>
 		
 		<p>
 			<label for="mission_description">Description:</label>
-			<input type="text" name="mission_description" value="COUCOU" id="mission_description" />
+			<input type="text" name="mission_description" value="Description de la mission" id="mission_description" />
 		</p>
 		
 		<p>
 			<label for="mission_address">Adresse:</label>
-			<input type="text" name="mission_address" value="COUCOU" id="mission_address" />
+			<input type="text" name="mission_address" value="Adresse de la mission" id="mission_address" />
 		</p>
 		
 		<p>
 			<label for="price_consumer">Prix consommateur:</label>
-			<input type="text" name="price_consumer" value="COUCOU" id="price_consumer" />
+			<input type="text" name="price_consumer" value="Prix consommateur" id="price_consumer" />
 		</p>
 		
 		<p>
 			<label for="price_business">Prix business:</label>
-			<input type="text" name="price_business" value="COUCOU" id="price_business" />
+			<input type="text" name="price_business" value="Prix business" id="price_business" />
 		</p>
 		
 		<p>
