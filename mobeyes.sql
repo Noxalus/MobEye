@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 10 Avril 2013 à 15:06
+-- Généré le: Mer 10 Avril 2013 à 16:21
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.4.3
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `mission_responses` (
   `mission_id` int(11) NOT NULL,
   `text` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `credits` float NOT NULL DEFAULT '0',
   `mission_in_progress` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -102,10 +102,10 @@ CREATE TABLE IF NOT EXISTS `user_tokens` (
   `user_id` int(11) NOT NULL,
   `user_agent` varchar(40) NOT NULL,
   `token` varchar(40) NOT NULL,
-  `created` int(11) NOT NULL,
-  `expires` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
