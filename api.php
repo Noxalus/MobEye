@@ -127,7 +127,7 @@ function accept_mission($cookie, $id_mission)
 
 function send_data($user_id, $mission_id, $mission_text, $pictures)
 {
-	require_once('db.php');
+	require('db.php');
 	
 	$query = $db->prepare('SELECT id FROM missions WHERE id = ' . $mission_id);
 	$query->execute();
@@ -146,6 +146,18 @@ function send_data($user_id, $mission_id, $mission_text, $pictures)
 			else
 			{
 				echo 'Problème lors de la création du dossier !';
+			}
+			
+			foreach($pictures as $img)
+			{
+				echo 'TEST<br />';
+				echo $img;
+				$img = str_replace('data:image/png;base64,', '', $img);
+				$img = str_replace(' ', '+', $img);
+				$data = base64_decode($img);
+				$file = uniqid() . '.png';
+				$success = file_put_contents($image_path . '/' . $file, $data);
+				print $success ? $file : 'Unable to save the file.';
 			}
 			
 			// On insert dans la base de donnée
