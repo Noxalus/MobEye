@@ -25,6 +25,13 @@ function fetchAll($table)
 	return $result;
 }
 
+function print_t($array)
+{
+	echo '<pre>';
+	print_r($array);
+	echo '</pre>';
+}
+
 function EncodeImage($path)
 {
 	$image_file = fopen($path, 'r');
