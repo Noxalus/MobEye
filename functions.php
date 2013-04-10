@@ -17,6 +17,7 @@ function fetchAll($table)
 	require_once('db.php');
 	
 	$result = array();
+
 	$query = $db->query('SELECT * FROM ' . $table);
 	
 	$result = $query->fetchAll();
