@@ -17,7 +17,7 @@
 		
 		case 'is_login':
 
-			print_t(is_login($method_args['cookie']));
+			print_t(is_login($method_args['user_id']));
 		
 		break;
 
@@ -41,13 +41,13 @@
 
 		case 'get_user':
 		
-			print_t(get_user($method_args['cookie']));
+			print_t(get_user($method_args['user_id']));
 		
 		break;
 
 		case 'accept_mission':
 
-			print_t(accept_mission($method_args['cookie'], $method_args['mission_id']));
+			print_t(accept_mission($method_args['user_id'], $method_args['mission_id']));
 		
 		break;
 
@@ -59,7 +59,7 @@
 		
 		case 'miss_mission':
 
-			print_t(miss_mission($method_args['cookie'], $method_args['mission_id']));
+			print_t(miss_mission($method_args['user_id'], $method_args['mission_id']));
 		
 		break;
 	}
