@@ -128,4 +128,26 @@ function send_data($user_id, $mission_id, $mission_text, $pictures)
 
 function miss_mission($cookie, $id_mission)
 {
+	require_once('db.php');
+
+	$request = '
+	UPDATE missions
+	SET is_hidden = :is_hidden, user_id = :id_user
+	WHERE id = :id_mission';
+	
+	$requestResult = $db->prepare($request);
+	$requestResult->execute(array(
+								'is_hidden' => '0',
+								'id_user' => '0',
+								'id_mission' => $id_mission));
+								
+	$request = '
+	UPDATE users
+	SET mission_in_progress = :mission_in_progress
+	WHERE id = :id_user';
+	
+	$requestResult = $db->prepare($request);
+	$requestResult->execute(array(
+								'mission_in_progress' => '0',
+								'id_user' => $cookie));
 }
