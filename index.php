@@ -1,6 +1,7 @@
 <?php
 
 	require('api.php');
+	require('functions.php');
 
 	$method_name = $_GET['method'];
 	$method_json_args = $_GET['data'];
