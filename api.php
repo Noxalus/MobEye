@@ -75,6 +75,45 @@ function logout($cookie)
 
 function new_user($email_password_first_name_last_name_birth_date_place)
 {
+	$arg = json_decode($email_password_first_name_last_name_birth_date_place, true);
+	
+	require_once('db.php');
+		
+	$insert = $db->prepare('
+		INSERT INTO 
+		users (
+			email, 
+			password, 
+			first_name, 
+			last_name, 
+			birth_date,
+			place,
+			registered_at) 
+		VALUES (?,?,?,?,?,?,NOW())');
+	
+
+	$result = $insert->execute(array($arg['email'], $arg['password'], $arg['first_name'], $arg['last_name'], $arg['birth_date'], $arg['place']));
+	
+	if ($result) {
+	
+		$user_path = 'Users/' . $db->lastInsertId();
+		
+		if (!file_exists($user_path))
+		{
+			if(@mkdir ($user_path, 0777, true))
+			{
+				echo 'Dossier crée !';
+			}
+			else
+			{
+				echo 'Problème lors de la création du dossier !';
+			}
+		}
+		return json_encode(array('new_user' => true));
+	}
+	else {
+		return json_encode(array('new_user' => false));
+	}
 }
 
 function get_missions()
