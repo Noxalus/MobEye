@@ -31,3 +31,11 @@ function print_t($array)
 	print_r($array);
 	echo '</pre>';
 }
+
+function EncodeImage($path)
+{
+	$image_file = fopen($path, 'r');
+	$image_data = fread($image_file, filesize($path));
+
+	return json_encode(base64_encode($image_data));
+}

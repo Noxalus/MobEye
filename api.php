@@ -27,9 +27,12 @@ function login($email_password)
 			token, 
 			created, 
 			expires) 
-		VALUES (?,?,?,NOW(),?))');
+		VALUES (?,?,?,NOW(),?)');
 
-		$insert->execute(array($id, $_SERVER['HTTP_USER_AGENT'], md5(uniqid(rand(), true))));
+		$date = new DateTime();
+		$date->add(new DateInterval('PT4H'));
+	
+		$insert->execute(array($id, $_SERVER['HTTP_USER_AGENT'], md5(uniqid(rand(), true)), $date->format('Y-m-d H:i:s')));
 		
 		return json_encode(array('login' => true));
 	}
@@ -37,10 +40,37 @@ function login($email_password)
 
 function is_login($cookie)
 {
+	require_once('db.php');
+	
+	$query = $db->query("SELECT expires FROM user_tokens WHERE id='" . $cookie . "'");
+	
+	$dateNow = new DateTime();
+	$interval = $dateNow->diff(DateTime::CreateFromFormat('Y-m-d H:i:s', $query->fetch()['expires']));
+	
+	if ($query->rowCount() == 0 || $interval->invert == 1)
+	{
+		return json_encode(array('login' => false));
+	}
+	else
+	{
+		return json_encode(array('login' => true));
+	}
 }
 
 function logout($cookie)
 {
+	require_once('db.php');
+	
+	$query = $db->exec("DELETE FROM user_tokens WHERE id='" . $cookie . "'");
+	
+	if ($query)
+	{
+		return json_encode(array('logout' => true));
+	}
+	else
+	{
+		return json_encode(array('logout' => false));
+	}
 }
 
 function new_user($email_password_first_name_last_name_birth_date_place)
@@ -58,10 +88,15 @@ function get_missions()
 
 function get_user($cookie)
 {
-	$date = new DateTime();
-	echo $date->format('Y-m-d H:i:s') . '<br />';
-	$date->add(new DateInterval('PT2H'));
-	echo $date->format('Y-m-d H:i:s');
+	require_once('db.php');
+	
+	$result = array();
+	$query = $db->query("SELECT user_id FROM  user_tokens WHERE id='" . $cookie . "'");
+	$user_id = $query->fetch()['user_id'];
+	
+	$query = $db->query("SELECT * FROM  users WHERE id='" . $user_id . "'");
+	
+	return json_encode($query->fetchAll());
 }
 
 function accept_mission($cookie, $id_mission)
