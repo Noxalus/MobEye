@@ -24,7 +24,7 @@
 
 		case 'logout':
 
-			print_t(logout($method_json_args));
+			print_t(logout($method_args['user_id']));
 		
 		break;
 
