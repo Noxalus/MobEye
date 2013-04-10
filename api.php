@@ -66,7 +66,7 @@ function get_user($cookie)
 
 function accept_mission($cookie, $id_mission)
 {
-	require_once('db.php');
+	require('db.php');
 
 	$request = '
 	UPDATE missions
@@ -128,7 +128,7 @@ function send_data($user_id, $mission_id, $mission_text, $pictures)
 
 function miss_mission($cookie, $id_mission)
 {
-	require_once('db.php');
+	require('db.php');
 
 	$request = '
 	UPDATE missions
