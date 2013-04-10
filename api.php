@@ -42,7 +42,7 @@ function is_login($cookie)
 {
 	require_once('db.php');
 	
-	$query = $db->query("SELECT expires FROM user_tokens WHERE id='" . $cookie . "'");
+	$query = $db->query("SELECT expires FROM user_tokens WHERE user_id='" . $cookie . "'");
 	
 	$dateNow = new DateTime();
 	
